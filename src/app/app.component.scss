@@ -1,0 +1,27 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.content-wrapper {
+  flex-grow: 1;
+ // padding-left: 220px;
+  transition: padding-left 0.3s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.main-content {
+  padding: 80px 24px 24px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+/* Shift layout when sidebar is collapsed */
+.app-container.collapsed {
+  .content-wrapper {
+    //padding-left: 60px;
+  }
+}

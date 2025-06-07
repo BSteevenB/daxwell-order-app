@@ -1,0 +1,24 @@
+.user-icon {
+  position: fixed;
+  top: 16px;
+  right: 24px;
+  z-index: 1001;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.user-icon mat-icon {
+  font-size: 28px;
+  color: #2f3c4f;
+}
+
+.user-icon:hover {
+  transform: scale(1.1);
+}
