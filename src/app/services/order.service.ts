@@ -11,7 +11,7 @@ export class OrderService {
   orders$ = this.orders.asObservable();
 
   constructor(private http: HttpClient) {
-     this.http.get<any[]>('../assets/orders.json').subscribe(data => {
+     this.http.get<any[]>('assets/orders.json').subscribe(data => {
       this.orders.next(data);
       console.log(data, 'data')
     });
