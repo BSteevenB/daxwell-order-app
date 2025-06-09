@@ -11,16 +11,10 @@ export class OrderService {
   orders$ = this.orders.asObservable();
 
   constructor(private http: HttpClient) {
-    // simulate loading from JSON file
-    const initialOrders = [
-      { id: 1, customer: 'ABC', status: 'Pending' },
-      { id: 2, customer: 'XYZ', status: 'Approved' }
-    ];
      this.http.get<any[]>('../assets/orders.json').subscribe(data => {
       this.orders.next(data);
       console.log(data, 'data')
     });
-   // this.orders.next(initialOrders);
   }
 
   getOrderCount(): number {

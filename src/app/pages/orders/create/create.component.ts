@@ -124,9 +124,9 @@ validateEitherIncotermOrFreightTerms(group: AbstractControl): ValidationErrors |
   this.orderForm.markAllAsTouched();
   if (this.orderForm.invalid) return;
 
-  const newOrder = this.orderForm.getRawValue(); // includes disabled fields like amount
+  const newOrder = this.orderForm.getRawValue(); 
 
-  this.orderService.addOrder(newOrder);  // Assume orderService writes to JSON or memory
+  this.orderService.addOrder(newOrder); 
 
   this.router.navigate(['/orders/list']);
   }
