@@ -9,8 +9,12 @@ export class SidebarComponent {
   @Input() isMobileOpen: boolean = false;
   collapsed = false;
   orderMenuOpen = true;
-
+  isMobileView = window.innerWidth <= 768;
   @Output() sidebarToggled = new EventEmitter<boolean>();
+
+  ngOnInit() {
+    this.onResize(); 
+  }
 
   toggleSidebar(): void {
     if (window.innerWidth <= 768) {
@@ -21,6 +25,19 @@ export class SidebarComponent {
     }
   }
 
+  handleMenuClick(): void {
+  if (this.isMobileView) {
+    this.closeMobileSidebar();
+  }
+}
+
+    getToggleIcon(): string {
+    if (this.isMobileView) {
+      return this.isMobileOpen ? 'close' : 'menu';
+    }
+    return this.collapsed ? 'menu' : 'chevron_left';
+  }
+
   closeMobileSidebar(): void {
     if (window.innerWidth <= 768) {
       this.isMobileOpen = false;
@@ -29,8 +46,12 @@ export class SidebarComponent {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    if (window.innerWidth > 768) {
-      this.isMobileOpen = false;
+    this.isMobileView = window.innerWidth <= 768;
+
+    if (this.isMobileView) {
+      this.collapsed = false; 
+    } else {
+      this.isMobileOpen = false; 
     }
   }
 }

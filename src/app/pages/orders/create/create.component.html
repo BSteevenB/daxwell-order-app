@@ -1,6 +1,5 @@
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="create-order-form">
 
-  <!-- ✅ Section 1: Basic Information -->
   <mat-card>
     <mat-card-title>Basic Information</mat-card-title>
     <mat-card-content>
@@ -53,7 +52,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-          <mat-label>To Location *</mat-label>
+          <mat-label>To Location</mat-label>
           <input matInput formControlName="toLocation">
           <mat-error *ngIf="orderForm.get('fromLocation')?.hasError('required')">
             To Location is required
@@ -84,13 +83,10 @@
           <mat-select formControlName="freightTerms">
             <mat-option *ngFor="let term of freightTerms" [value]="term">{{ term }}</mat-option>
           </mat-select>
+            <mat-error *ngIf="orderForm.errors?.['eitherRequired'] && (orderForm.touched || orderForm.dirty)">Please select either Incoterm or Freight Terms.</mat-error>
+
 
         </mat-form-field>
-
-        <span *ngIf="orderForm.errors?.['eitherRequired'] && (orderForm.touched || orderForm.dirty)">
-  <mat-error>Please select either Incoterm or Freight Terms.</mat-error>
-        </span>
-
 
         <mat-form-field appearance="fill">
           <mat-label>Total Ship Unit Count</mat-label>
@@ -123,10 +119,15 @@
         </mat-form-field>
 
       </div>
+      <div class="form-error">
+      <mat-error *ngIf="orderForm.errors?.['eitherRequired'] &&
+                    (orderForm.get('incoterm')?.touched || orderForm.get('freightTerms')?.touched)">
+    Please select either Incoterm or Freight Terms.
+  </mat-error>
+  </div>
     </mat-card-content>
   </mat-card>
 
-  <!-- ✅ Section 2: Billing & Shipping Address -->
   <mat-card>
     <mat-card-title>Billing & Shipping Address</mat-card-title>
     <mat-card-content>
@@ -197,47 +198,47 @@
     <mat-card-title>Order Lines</mat-card-title>
     <mat-card-content>
     <div formArrayName="lines">
-<div *ngFor="let line of lines.controls; let i = index" [formGroupName]="i" class="line-row">
+      <div *ngFor="let line of lines.controls; let i = index" [formGroupName]="i" class="line-row">
 
-  <mat-form-field appearance="outline">
-    <mat-label>Item</mat-label>
-    <input matInput formControlName="item" />
-  </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Item</mat-label>
+          <input matInput formControlName="item" />
+        </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Units</mat-label>
-    <input matInput formControlName="units" />
-  </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Units</mat-label>
+          <input matInput formControlName="units" />
+        </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Quantity</mat-label>
-    <input matInput type="number" formControlName="quantity" (input)="calculateLineAmount(i)" />
-  </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Quantity</mat-label>
+          <input matInput type="number" formControlName="quantity" (input)="calculateLineAmount(i)" />
+        </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Price</mat-label>
-    <input matInput type="number" formControlName="price" (input)="calculateLineAmount(i)" />
-  </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Price</mat-label>
+          <input matInput type="number" formControlName="price" (input)="calculateLineAmount(i)" />
+        </mat-form-field>
 
-  <mat-form-field appearance="outline" class="readonly">
-    <mat-label>Amount</mat-label>
-    <input matInput [value]="line.get('amount')?.value" readonly />
-  </mat-form-field>
+        <mat-form-field appearance="outline" class="readonly">
+          <mat-label>Amount</mat-label>
+          <input matInput [value]="line.get('amount')?.value" readonly />
+        </mat-form-field>
 
-  <button *ngIf="lines.length > 1"
-          mat-icon-button color="warn"
-          (click)="removeLine(i)"
-          aria-label="Remove line">
-    <mat-icon>delete</mat-icon>
-  </button>
+        <button *ngIf="lines.length > 1"
+                mat-icon-button color="warn"
+                (click)="removeLine(i)"
+                aria-label="Remove line">
+          <mat-icon>delete</mat-icon>
+        </button>
 
-</div>
+      </div>
 
-</div>  
+    </div>  
 
 
-  <button *ngIf="!readonly" mat-flat-button color="primary" type="button" (click)="addLine()">Add Line</button>
-    </mat-card-content>
+    <button *ngIf="!readonly" mat-flat-button color="primary" type="button" (click)="addLine()">Add Line</button>
+  </mat-card-content>
   </mat-card>
 
   <div *ngIf="!readonly" class="submit-btn">

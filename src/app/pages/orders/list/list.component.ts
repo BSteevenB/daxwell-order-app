@@ -44,7 +44,7 @@ reasonCodes: string[] = [
   ngOnInit(): void {
     this.orderService.orders$.subscribe(data => {
       this.orders = data;
-      this.applyFilterByTab(); // auto filter when data updates
+      this.applyFilterByTab(); 
     });
      this.checkScreen();
   window.addEventListener('resize', () => this.checkScreen());
@@ -92,9 +92,8 @@ toLocalDate(date: string | Date | null): Date | null {
   if (!date) return null;
 
   if (typeof date === 'string') {
-    // Expecting format: 'YYYY-MM-DD'
     const [year, month, day] = date.split('-').map(Number);
-    return new Date(year, month - 1, day); // JS months are 0-based
+    return new Date(year, month - 1, day);
   }
 
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -119,7 +118,7 @@ toLocalDate(date: string | Date | null): Date | null {
 }
 
 applyFilters(): void {
-  this.applyFilterByTab(); // reuse the logic with current tab
+  this.applyFilterByTab();
 }
 
 
@@ -127,7 +126,7 @@ applyFilters(): void {
     const confirmDelete = confirm(`Are you sure you want to delete order #${order.orderNumber}?`);
     if (confirmDelete) {
       const updatedOrders = this.orders.filter(o => o !== order);
-      this.orderService.setOrders(updatedOrders); // you define this method in service
+      this.orderService.setOrders(updatedOrders); 
     }
   }
 }

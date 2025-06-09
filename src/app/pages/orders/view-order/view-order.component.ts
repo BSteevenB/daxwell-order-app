@@ -26,10 +26,10 @@ export class ViewOrderComponent implements OnInit {
     }) 
 
     this.orderForm = this.fb.group({
-      // same structure as in create.component.ts
+      
     });
 
     this.orderForm.patchValue(this.order);
-    this.orderForm.disable(); // 🔒 disables all controls
+    this.orderForm.disable(); 
   }
 }
