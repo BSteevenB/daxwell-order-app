@@ -1,4 +1,7 @@
-<div class="sidebar" [class.collapsed]="collapsed">
+<!-- Backdrop for mobile -->
+<div class="sidebar-backdrop" [class.visible]="isMobileOpen" (click)="closeMobileSidebar()"></div>
+
+<div class="sidebar" [class.collapsed]="collapsed" [class.mobile-open]="isMobileOpen">
  <button mat-icon-button (click)="toggleSidebar()" class="collapse-toggle">
   <mat-icon>{{ collapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
 </button>

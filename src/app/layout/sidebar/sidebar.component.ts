@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output  } from '@angular/core';
+import { Component, EventEmitter, Output, HostListener, Input } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,13 +6,31 @@ import { Component, EventEmitter, Output  } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-collapsed = false;
-orderMenuOpen = true;
+  @Input() isMobileOpen: boolean = false;
+  collapsed = false;
+  orderMenuOpen = true;
 
   @Output() sidebarToggled = new EventEmitter<boolean>();
 
   toggleSidebar(): void {
-    this.collapsed = !this.collapsed;
-    this.sidebarToggled.emit(this.collapsed);
+    if (window.innerWidth <= 768) {
+      this.isMobileOpen = !this.isMobileOpen;
+    } else {
+      this.collapsed = !this.collapsed;
+      this.sidebarToggled.emit(this.collapsed);
+    }
+  }
+
+  closeMobileSidebar(): void {
+    if (window.innerWidth <= 768) {
+      this.isMobileOpen = false;
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    if (window.innerWidth > 768) {
+      this.isMobileOpen = false;
+    }
   }
 }

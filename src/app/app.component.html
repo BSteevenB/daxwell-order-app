@@ -1,5 +1,10 @@
 <div class="app-container" [class.collapsed]="isSidebarCollapsed">
-  <app-sidebar (sidebarToggled)="handleSidebarToggle($event)"></app-sidebar>
+  <app-sidebar (sidebarToggled)="handleSidebarToggle($event)" [isMobileOpen]="isMobileSidebarOpen"></app-sidebar>
+
+  <!-- Hamburger menu for mobile -->
+  <button mat-icon-button class="mobile-menu-toggle" (click)="toggleMobileSidebar()">
+    <mat-icon>menu</mat-icon>
+  </button>
 
   <div class="content-wrapper">
     <app-user-menu></app-user-menu>

@@ -5,10 +5,22 @@
   color: white;
   display: flex;
   flex-direction: column;
-  transition: width 0.3s;
+  transition: all 0.3s ease;
   padding: 0rem 0.5rem;
   backdrop-filter: blur(10px);
-  transition: width 0.3s ease;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+
+  @media (max-width: 768px) {
+    transform: translateX(-100%);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
 
   nav a {
     display: flex;
@@ -82,5 +94,23 @@
 
   mat-icon {
     color: #2f3c4f;
+  }
+}
+
+// Add backdrop for mobile
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  
+  @media (max-width: 768px) {
+    &.visible {
+      display: block;
+    }
   }
 }
