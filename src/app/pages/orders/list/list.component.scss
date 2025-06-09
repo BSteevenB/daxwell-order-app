@@ -1,0 +1,103 @@
+// .filters {
+//   display: flex;
+//   gap: 1rem;
+//   flex-wrap: wrap;
+//   margin-bottom: 1rem;
+// }
+
+.summary-panel {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap; /* Added for responsiveness */
+}
+
+.mat-tab-group {
+  margin-bottom: 1rem;
+}
+
+// list.component.scss
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-content: flex-start;
+
+  mat-form-field {
+    flex: 1 1 0px; // flexible min width
+    max-width: 100%;
+  }
+}
+
+.summary-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  mat-card {
+    flex: 1 1 0px;
+    padding: 0.5rem 1rem;
+    font-size: 14px;
+    text-align: center;
+    min-width: 100px;
+    background: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: none;
+  }
+}
+
+// Responsive stack layout
+@media (max-width: 768px) {
+  .filters,
+  .summary-panel {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  mat-form-field,
+  mat-card {
+    width: 100%;
+  }
+}
+.tab-scroll-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  margin-bottom: 1rem;
+
+  // OPTIONAL: prettier scrollbar
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #bbb;
+    border-radius: 4px;
+  }
+
+  // Apply scroll behavior to inner tab container
+  ::ng-deep .mat-mdc-tab-header {
+    min-width: max-content;  // Ensures content is wider than wrapper
+  }
+
+  ::ng-deep .mat-mdc-tab-label-container {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+  }
+
+  ::ng-deep .mat-mdc-tab-labels {
+    flex-wrap: nowrap;
+  }
+
+  ::ng-deep .mat-mdc-tab-label {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+}
+
+
+
+

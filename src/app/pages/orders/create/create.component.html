@@ -245,3 +245,14 @@
   </div>
 
 </form>
+
+
+<div class="history-container">
+  <div *ngFor="let event of orderData?.history" class="history-item">
+    <div class="dot"></div>
+    <div class="content">
+      <div class="timestamp">{{ event.timestamp | date:'medium' }}</div>
+      <div class="event">{{ event.event }}</div>
+    </div>
+  </div>
+</div>

@@ -34,6 +34,8 @@ reasonCodes: string[] = [
   'STOCK_SHORTAGE',
   'CUSTOMER_REQUEST',
 ];
+  isMobile = false;
+
 
 
   constructor(private orderService: OrderService, private router: Router) {}
@@ -44,10 +46,19 @@ reasonCodes: string[] = [
       this.orders = data;
       this.applyFilterByTab(); // auto filter when data updates
     });
+     this.checkScreen();
+  window.addEventListener('resize', () => this.checkScreen());
   }
+
+
+
+checkScreen(): void {
+  this.isMobile = window.innerWidth < 768;
+}
 
   ngAfterViewInit(): void {
     this.filteredOrders.sort = this.sort;
+    console.log(this.filteredOrders, 'filteredOrders')
   }
 
   filterByStatus(event: any): void {
@@ -55,15 +66,17 @@ reasonCodes: string[] = [
     this.applyFilterByTab();
   }
 
-applyFilterByTab(): void {
+  applyFilterByTab(): void {
   const label = ['All', ...this.statusOptions][this.selectedTabIndex];
 
   this.filteredOrders.data = this.orders.filter(order => {
-    const txDate = new Date(order.transactionDate);
+  const txDate = this.toLocalDate(order.transactionDate);
+const start = this.startDate ? this.toLocalDate(this.startDate) : null;
+const end = this.endDate ? this.toLocalDate(this.endDate) : null;
 
     const matchesTab = label === 'All' || order.status === label;
-    const matchesStart = !this.startDate || txDate >= this.startDate;
-    const matchesEnd = !this.endDate || txDate <= this.endDate;
+    const matchesStart = !start || (txDate && txDate.getTime() >= start.getTime());
+    const matchesEnd = !end || (txDate && txDate.getTime() <= end.getTime());
     const matchesReasons =
       this.selectedReasons.length === 0 ||
       (order.pendingApprovalReasonCode ?? []).some((code: string) =>
@@ -73,6 +86,23 @@ applyFilterByTab(): void {
     return matchesTab && matchesStart && matchesEnd && matchesReasons;
   });
 }
+
+
+toLocalDate(date: string | Date | null): Date | null {
+  if (!date) return null;
+
+  if (typeof date === 'string') {
+    // Expecting format: 'YYYY-MM-DD'
+    const [year, month, day] = date.split('-').map(Number);
+    return new Date(year, month - 1, day); // JS months are 0-based
+  }
+
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+
+
+
 
 
   getOrderAmount(order: any): number {

@@ -82,18 +82,18 @@
 
 
 .collapse-toggle {
-  margin: 0 auto 1rem auto;
-  background-color: #fff;
-  border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  transition: background-color 0.2s ease;
+  background-color: transparent;
+  color: #fff;
+  margin: 10px 8px;
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  transition: background 0.2s;
 
-  &:hover {
-    background-color: #f0f0f0;
-  }
+ 
 
   mat-icon {
-    color: #2f3c4f;
+    color: white;
   }
 }
 
