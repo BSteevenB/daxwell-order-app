@@ -1,10 +1,11 @@
 <div class="sidebar" [class.collapsed]="collapsed">
-  <span (click)="toggleSidebar()">
-    <mat-icon>{{ collapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
-  </span>
+ <button mat-icon-button (click)="toggleSidebar()" class="collapse-toggle">
+  <mat-icon>{{ collapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+</button>
 
   <nav>
-    <a routerLink="/home">
+    <a routerLink="/home" routerLinkActive="active"
+  [routerLinkActiveOptions]="{ exact: true }">
       <mat-icon>home</mat-icon>
       <span *ngIf="!collapsed">Home</span>
     </a>
@@ -16,40 +17,10 @@
       </a>
 
       <div class="submenu" *ngIf="!collapsed">
-        <a routerLink="/orders/create">Create</a>
-        <a routerLink="/orders/list">List</a>
+        <a routerLink="/orders/create" routerLinkActive="active">Create</a>
+        <a routerLink="/orders/list" routerLinkActive="active">List</a>
       </div>
     </div>
   </nav>
 
 </div>
-
-
-
-<!-- <div class="sidebar">
-
-  <button class="toggle-btn" (click)="toggleSidebar()">
-    <mat-icon>{{ collapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
-  </button>
-
-  <nav>
-      <a routerLink="" routerLinkActive="active">
-        <mat-icon>home</mat-icon>
-        <span *ngIf="">HOME</span>
-      </a>
-
-      <div class="menu-group">
-        <a>
-          <mat-icon>inventory_2</mat-icon>
-          <span *ngIf="!collapsed"></span>
-        </a>
-
-        <div *ngIf="!collapsed && orderMenuOpen" class="submenu">
-          <a routerLink="/orders/create" routerLinkActive="active">Create</a>
-          <a routerLink="/orders/list" routerLinkActive="active">List</a>
-      </div>
-      </div>
-
-  </nav>
-
-</div> -->

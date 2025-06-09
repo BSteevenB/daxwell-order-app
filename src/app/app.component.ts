@@ -8,10 +8,20 @@ import { Component, HostListener  } from '@angular/core';
 export class AppComponent {
   title = 'daxwell-order-app';
   isSidebarCollapsed = false;
+  
+  isMobileSidebarOpen = false;
+
 
     handleSidebarToggle(collapsed: boolean) {
     this.isSidebarCollapsed = collapsed;
   }
+
+
+
+toggleMobileSidebar() {
+  this.isMobileSidebarOpen = !this.isMobileSidebarOpen;
+}
+
 
   // Optional: auto-collapse for small screens
   @HostListener('window:resize', [])

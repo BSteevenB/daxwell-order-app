@@ -1,0 +1,47 @@
+.create-order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  mat-card {
+    padding: 16px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  h4 {
+    margin: 16px 0 8px;
+  }
+
+  .submit-btn {
+    text-align: right;
+    padding: 16px;
+  }
+}
+
+
+.line-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr) auto;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: end;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .readonly input {
+    background-color: #f0f0f0;
+    font-weight: 500;
+    color: #333;
+  }
+}
