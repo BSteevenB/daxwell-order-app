@@ -1,4 +1,5 @@
 
+
 <!-- Filters Section -->
 <section class="filters">
   <mat-form-field appearance="fill" class="filter-field">
@@ -52,12 +53,12 @@
       </div>
       <div class="order-body">
         <p><strong>Customer:</strong> {{ order.customer }}</p>
-        <p><strong>Created:</strong> {{ order.created | date:'short' }}</p>
-        <p><strong>Due:</strong> {{ order.due | date }}</p>
+        <p><strong>Created:</strong> {{ order.transactionDate | date:'M/d/yyyy' }}</p>
+        <p><strong>Due:</strong> {{ order.latePickupDate | date:'M/d/yyyy' }}</p>
         <p><strong>Amount:</strong> ${{ getOrderAmount(order) }}</p>
       </div>
       <div class="order-actions">
-        <button mat-button color="primary" (click)="viewOrder(order)">View</button>
+        <button mat-button color="primary" class="view" (click)="viewOrder(order)">View</button>
         <button mat-button color="warn" (click)="deleteOrder(order)">Delete</button>
       </div>
     </mat-card>

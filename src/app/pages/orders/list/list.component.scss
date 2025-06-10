@@ -56,37 +56,35 @@
   }
 }
 .tab-scroll-wrapper {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  max-width: 100%;
-  margin-bottom: 1rem;
+  overflow-x: scroll !important;
+  padding-bottom: 4px; // subtle spacing for scrollbar
 
+  mat-tab-group {
+    //min-width: 600px; // or however many tabs you expect
+    width: max-content;
+    flex-shrink: 1;
+  }
+
+  // Optional: hide scrollbar on webkit (for better aesthetics)
   &::-webkit-scrollbar {
-    height: 4px;
+    height: 6px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #bbb;
+    background-color: rgba(0,0,0,0.2);
     border-radius: 4px;
   }
+}
 
-  ::ng-deep .mat-mdc-tab-header {
-    min-width: max-content; 
-  }
 
-  ::ng-deep .mat-mdc-tab-label-container {
-    overflow-x: auto !important;
-    max-width: 100% !important;
-  }
+.order-card {
+  padding: 10px;
+}
 
-  ::ng-deep .mat-mdc-tab-labels {
-    flex-wrap: nowrap;
-  }
-
-  ::ng-deep .mat-mdc-tab-label {
-    flex: 0 0 auto;
-    white-space: nowrap;
-  }
+.order-actions {
+    .view {
+    background-color: #e9e0e0;
+    }
 }
 
 

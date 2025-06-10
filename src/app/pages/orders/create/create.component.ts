@@ -22,7 +22,7 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
     this.orderForm = this.fb.group({
       orderNumber: ['', Validators.required],
-      customer: ['', Validators.required],
+      customer: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]*$/)]],
       transactionDate: ['', Validators.required],
       status: ['', Validators.required],
       fromLocation: ['', Validators.required],
@@ -38,14 +38,14 @@ export class CreateComponent implements OnInit {
         street: [''],
         city: [''],
         state: [''],
-        postalCode: [''],
+        postalCode: ['', [Validators.pattern(/^[A-Za-z\s]*$/)]],
         country: ['']
       }),
       shippingAddress: this.fb.group({
         street: [''],
         city: [''],
         state: [''],
-        postalCode: [''],
+        postalCode: ['', [Validators.pattern(/^[A-Za-z\s]*$/)]],
         country: ['']
       }),
       earlyPickupDate: [''],
@@ -64,12 +64,22 @@ export class CreateComponent implements OnInit {
     this.orderForm.get('freightTerms')?.valueChanges.subscribe(val => {
       if (val) this.orderForm.get('incoterm')?.reset();
     });
-
-    if (this.readonly) {
-      this.orderForm.disable();  // disable entire form
-    }
     if (this.orderData) {
       this.orderForm.patchValue(this.orderData);
+      this.lines.clear(); 
+      this.orderData.lines.forEach((line: any) => {
+      this.lines.push(this.fb.group({
+        item: [line.item, Validators.required],
+        units: [line.units],
+        quantity: [line.quantity, Validators.required],
+        price: [line.price, Validators.required],
+        amount: [{ value: line.amount, disabled: true }]
+      }));
+    });
+    }
+    
+    if (this.readonly) {
+      this.orderForm.disable();  // disable entire form
     }
   }
 
@@ -87,11 +97,9 @@ validateEitherIncotermOrFreightTerms(group: AbstractControl): ValidationErrors |
   const incoterm = group.get('incoterm')?.value;
   const freightTerms = group.get('freightTerms')?.value;
 
-  // If neither is filled → error
   if (!incoterm && !freightTerms) {
     return { eitherRequired: true };
   }
-  // Valid
   return null;
 }
 
@@ -100,13 +108,7 @@ validateEitherIncotermOrFreightTerms(group: AbstractControl): ValidationErrors |
   }
 
   addLine() {
-    this.lines.push(this.fb.group({
-      item: [''],
-      units: [''],
-      quantity: [null],
-      price: [null],
-      amount: [{ value: 0, disabled: true }]
-    }));
+    this.lines.push(this.createLineGroup());
   }
 
   removeLine(index: number) {
@@ -121,13 +123,13 @@ validateEitherIncotermOrFreightTerms(group: AbstractControl): ValidationErrors |
   }
 
   onSubmit() {
-  this.orderForm.markAllAsTouched();
-  if (this.orderForm.invalid) return;
+    this.orderForm.markAllAsTouched();
+    if (this.orderForm.invalid) return;
 
-  const newOrder = this.orderForm.getRawValue(); 
+    const newOrder = this.orderForm.getRawValue(); 
 
-  this.orderService.addOrder(newOrder); 
+    this.orderService.addOrder(newOrder); 
 
-  this.router.navigate(['/orders/list']);
+    this.router.navigate(['/orders/list']);
   }
 }

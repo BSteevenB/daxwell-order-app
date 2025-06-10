@@ -1,12 +1,14 @@
 <div class="modal-content">
-    <button mat-icon-button class="close-btn" (click)="close()">
-        <mat-icon>
+  <button mat-icon-button class="close-btn" (click)="close()" aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
 
-        </mat-icon>   
-    </button>
-
-  <img class="avatar" src="https://via.placeholder.com/60" alt="User">
-  <h3>Steeven Pandu</h3>
-  <p>Role: Admin</p>
-  <p>Email: steevenexample.com</p>
+  <div class="user-info">
+    <img class="avatar" src="assets/profile.jpg" galt="User" />
+    <div class="details">
+      <h3 class="username">Steeven Pandu</h3>
+      <p class="role">Admin</p>
+      <p class="email">{{"steeven"+"@"+"example.com"}}  </p>
+    </div>
+  </div>
 </div>

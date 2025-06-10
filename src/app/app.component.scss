@@ -6,6 +6,7 @@
 
 .content-wrapper {
   flex-grow: 1;
+  width: 100%;
   margin-left: 220px; 
   transition: margin-left 0.3s ease;
   display: flex;
@@ -20,7 +21,7 @@
 }
 
 .main-content {
-  padding: 80px 24px 24px;
+  padding: 80px 46px 24px;
   overflow-y: auto;
   flex-grow: 1;
 }
