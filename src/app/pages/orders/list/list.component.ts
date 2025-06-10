@@ -7,58 +7,57 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-order-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
   orders: any[] = [];
   filteredOrders = new MatTableDataSource<any>([]);
-  columns: string[] = [  'orderNumber',
-  'customer',
-  'transactionDate',
-  'dueDate',
-  'amount',
-  'status',
-  'actions'];
+  columns: string[] = [
+    'orderNumber',
+    'customer',
+    'transactionDate',
+    'dueDate',
+    'amount',
+    'status',
+    'actions',
+  ];
   selectedTabIndex = 0;
 
   statusOptions = ['Pending', 'Approved', 'Shipped', 'Cancelled'];
 
-@ViewChild(MatSort) sort!: MatSort;
-startDate?: Date;
-endDate?: Date;
-selectedReasons: string[] = [];
+  @ViewChild(MatSort) sort!: MatSort;
+  startDate?: Date;
+  endDate?: Date;
+  selectedReasons: string[] = [];
 
-reasonCodes: string[] = [
-  'PRICE_DISCREPANCY',
-  'CREDIT_HOLD',
-  'STOCK_SHORTAGE',
-  'CUSTOMER_REQUEST',
-];
+  reasonCodes: string[] = [
+    'PRICE_DISCREPANCY',
+    'CREDIT_HOLD',
+    'STOCK_SHORTAGE',
+    'CUSTOMER_REQUEST',
+  ];
   isMobile = false;
 
+  constructor(
+    private orderService: OrderService,
+    private router: Router,
+  ) {}
 
-
-  constructor(private orderService: OrderService, private router: Router) {}
-
-  
   ngOnInit(): void {
-    this.orderService.orders$.subscribe(data => {
+    this.orderService.orders$.subscribe((data) => {
       this.orders = data;
-      this.applyFilterByTab(); 
+      this.applyFilterByTab();
     });
-     this.checkScreen();
-  window.addEventListener('resize', () => this.checkScreen());
+    this.checkScreen();
+    window.addEventListener('resize', () => this.checkScreen());
   }
 
-
-
-checkScreen(): void {
-  this.isMobile = window.innerWidth < 768;
-}
+  checkScreen(): void {
+    this.isMobile = window.innerWidth < 768;
+  }
 
   ngAfterViewInit(): void {
     this.filteredOrders.sort = this.sort;
-    console.log(this.filteredOrders, 'filteredOrders')
   }
 
   filterByStatus(event: any): void {
@@ -67,66 +66,58 @@ checkScreen(): void {
   }
 
   applyFilterByTab(): void {
-  const label = ['All', ...this.statusOptions][this.selectedTabIndex];
+    const label = ['All', ...this.statusOptions][this.selectedTabIndex];
 
-  this.filteredOrders.data = this.orders.filter(order => {
-  const txDate = this.toLocalDate(order.transactionDate);
-const start = this.startDate ? this.toLocalDate(this.startDate) : null;
-const end = this.endDate ? this.toLocalDate(this.endDate) : null;
+    this.filteredOrders.data = this.orders.filter((order) => {
+      const txDate = this.toLocalDate(order.transactionDate);
+      const start = this.startDate ? this.toLocalDate(this.startDate) : null;
+      const end = this.endDate ? this.toLocalDate(this.endDate) : null;
 
-    const matchesTab = label === 'All' || order.status === label;
-    const matchesStart = !start || (txDate && txDate.getTime() >= start.getTime());
-    const matchesEnd = !end || (txDate && txDate.getTime() <= end.getTime());
-    const matchesReasons =
-      this.selectedReasons.length === 0 ||
-      (order.pendingApprovalReasonCode ?? []).some((code: string) =>
-        this.selectedReasons.includes(code)
-      );
+      const matchesTab = label === 'All' || order.status === label;
+      const matchesStart = !start || (txDate && txDate.getTime() >= start.getTime());
+      const matchesEnd = !end || (txDate && txDate.getTime() <= end.getTime());
+      const matchesReasons =
+        this.selectedReasons.length === 0 ||
+        (order.pendingApprovalReasonCode ?? []).some((code: string) =>
+          this.selectedReasons.includes(code),
+        );
 
-    return matchesTab && matchesStart && matchesEnd && matchesReasons;
-  });
-}
-
-
-toLocalDate(date: string | Date | null): Date | null {
-  if (!date) return null;
-
-  if (typeof date === 'string') {
-    const [year, month, day] = date.split('-').map(Number);
-    return new Date(year, month - 1, day);
+      return matchesTab && matchesStart && matchesEnd && matchesReasons;
+    });
   }
 
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-}
+  toLocalDate(date: string | Date | null): Date | null {
+    if (!date) return null;
 
+    if (typeof date === 'string') {
+      const [year, month, day] = date.split('-').map(Number);
+      return new Date(year, month - 1, day);
+    }
 
-
-
-
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  }
 
   getOrderAmount(order: any): number {
     return order.lines?.reduce((sum: number, line: any) => sum + (line.amount || 0), 0);
   }
 
   viewOrder(order: any) {
-    console.log(order, 'order')
     this.router.navigate(['/orders', order.orderNumber, 'view']);
   }
 
   getStatusCount(status: string): number {
-  return this.filteredOrders.data.filter(order => order.status === status).length;
-}
+    return this.filteredOrders.data.filter((order) => order.status === status).length;
+  }
 
-applyFilters(): void {
-  this.applyFilterByTab();
-}
-
+  applyFilters(): void {
+    this.applyFilterByTab();
+  }
 
   deleteOrder(order: any): void {
     const confirmDelete = confirm(`Are you sure you want to delete order #${order.orderNumber}?`);
     if (confirmDelete) {
-      const updatedOrders = this.orders.filter(o => o !== order);
-      this.orderService.setOrders(updatedOrders); 
+      const updatedOrders = this.orders.filter((o) => o !== order);
+      this.orderService.setOrders(updatedOrders);
     }
   }
 }

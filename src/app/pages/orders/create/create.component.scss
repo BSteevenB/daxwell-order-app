@@ -27,7 +27,6 @@
   }
 }
 
-
 .line-row {
   display: grid;
   grid-template-columns: repeat(5, 1fr) auto;
@@ -90,7 +89,7 @@
   margin-bottom: 16px;
 
   mat-form-field {
-    flex: 1 1 0px; 
+    flex: 1 1 0px;
     min-width: 140px;
   }
 
@@ -120,4 +119,3 @@
     }
   }
 }
-

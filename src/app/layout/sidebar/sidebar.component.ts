@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output, HostListener, Input } from '@angular/c
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
   @Input() isMobileOpen: boolean = false;
@@ -13,7 +13,7 @@ export class SidebarComponent {
   @Output() sidebarToggled = new EventEmitter<boolean>();
 
   ngOnInit() {
-    this.onResize(); 
+    this.onResize();
   }
 
   toggleSidebar(): void {
@@ -26,12 +26,12 @@ export class SidebarComponent {
   }
 
   handleMenuClick(): void {
-  if (this.isMobileView) {
-    this.closeMobileSidebar();
+    if (this.isMobileView) {
+      this.closeMobileSidebar();
+    }
   }
-}
 
-    getToggleIcon(): string {
+  getToggleIcon(): string {
     if (this.isMobileView) {
       return this.isMobileOpen ? 'close' : 'menu';
     }
@@ -49,9 +49,9 @@ export class SidebarComponent {
     this.isMobileView = window.innerWidth <= 768;
 
     if (this.isMobileView) {
-      this.collapsed = false; 
+      this.collapsed = false;
     } else {
-      this.isMobileOpen = false; 
+      this.isMobileOpen = false;
     }
   }
 }

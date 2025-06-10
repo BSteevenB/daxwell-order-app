@@ -1,16 +1,13 @@
-
-
 .summary-panel {
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .mat-tab-group {
   margin-bottom: 1rem;
 }
-
 
 .filters {
   display: flex;
@@ -20,7 +17,7 @@
   justify-content: flex-start;
 
   mat-form-field {
-    flex: 1 1 0px; 
+    flex: 1 1 0px;
     max-width: 100%;
   }
 }
@@ -71,22 +68,17 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
   }
 }
-
 
 .order-card {
   padding: 10px;
 }
 
 .order-actions {
-    .view {
+  .view {
     background-color: #e9e0e0;
-    }
+  }
 }
-
-
-
-

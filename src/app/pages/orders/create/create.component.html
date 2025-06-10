@@ -1,23 +1,26 @@
 <h1 *ngIf="!readonly">New Order</h1>
 <h1 *ngIf="readonly">Order Details</h1>
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="create-order-form">
-
   <mat-card>
     <mat-card-title>Basic Information</mat-card-title>
     <mat-card-content>
       <div class="form-grid">
-
         <mat-form-field appearance="fill">
           <mat-label>Order Number</mat-label>
-          <input matInput type="text" formControlName="orderNumber">
-          <mat-error *ngIf="orderForm.get('orderNumber')?.hasError('required') && orderForm.get('orderNumber')?.touched">
+          <input matInput type="text" formControlName="orderNumber" />
+          <mat-error
+            *ngIf="
+              orderForm.get('orderNumber')?.hasError('required') &&
+              orderForm.get('orderNumber')?.touched
+            "
+          >
             Order Number is required
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Customer</mat-label>
-          <input matInput type="text" formControlName="customer">
+          <input matInput type="text" formControlName="customer" />
           <mat-error *ngIf="orderForm.get('customer')?.hasError('required')">
             Customer is required
           </mat-error>
@@ -28,11 +31,11 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Transaction Date</mat-label>
-          <input matInput [matDatepicker]="picker1" formControlName="transactionDate">
+          <input matInput [matDatepicker]="picker1" formControlName="transactionDate" />
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
           <mat-error *ngIf="orderForm.get('transactionDate')?.hasError('required')">
-           Transaction Date is required
+            Transaction Date is required
           </mat-error>
         </mat-form-field>
 
@@ -42,14 +45,16 @@
             <mat-option *ngFor="let status of statuses" [value]="status">{{ status }}</mat-option>
           </mat-select>
           <mat-error *ngIf="orderForm.get('status')?.hasError('required')">
-           Status is required
+            Status is required
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>From Location</mat-label>
           <mat-select formControlName="fromLocation">
-            <mat-option *ngFor="let location of locations" [value]="location">{{ location }}</mat-option>
+            <mat-option *ngFor="let location of locations" [value]="location">{{
+              location
+            }}</mat-option>
           </mat-select>
           <mat-error *ngIf="orderForm.get('fromLocation')?.hasError('required')">
             From Location is required
@@ -58,7 +63,7 @@
 
         <mat-form-field appearance="fill">
           <mat-label>To Location</mat-label>
-          <input matInput type="text" formControlName="toLocation">
+          <input matInput type="text" formControlName="toLocation" />
           <mat-error *ngIf="orderForm.get('fromLocation')?.hasError('required')">
             To Location is required
           </mat-error>
@@ -67,19 +72,23 @@
         <mat-form-field appearance="fill">
           <mat-label>Pending Approval Reason</mat-label>
           <mat-select formControlName="pendingApprovalReasonCode" multiple>
-            <mat-option *ngFor="let reason of pendingReasons" [value]="reason">{{ reason }}</mat-option>
+            <mat-option *ngFor="let reason of pendingReasons" [value]="reason">{{
+              reason
+            }}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Support Rep</mat-label>
-          <input matInput formControlName="supportRep">
+          <input matInput formControlName="supportRep" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Incoterm</mat-label>
           <mat-select formControlName="incoterm">
-            <mat-option *ngFor="let incoterm of incoterms" [value]="incoterm">{{ incoterm }}</mat-option>
+            <mat-option *ngFor="let incoterm of incoterms" [value]="incoterm">{{
+              incoterm
+            }}</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -88,48 +97,52 @@
           <mat-select formControlName="freightTerms">
             <mat-option *ngFor="let term of freightTerms" [value]="term">{{ term }}</mat-option>
           </mat-select>
-            <mat-error *ngIf="orderForm.errors?.['eitherRequired'] && (orderForm.touched || orderForm.dirty)">Please select either Incoterm or Freight Terms.</mat-error>
-
-
+          <mat-error
+            *ngIf="orderForm.errors?.['eitherRequired'] && (orderForm.touched || orderForm.dirty)"
+            >Please select either Incoterm or Freight Terms.</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Total Ship Unit Count</mat-label>
-          <input matInput type="number" formControlName="totalShipUnitCount">
+          <input matInput type="number" formControlName="totalShipUnitCount" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Total Quantity</mat-label>
-          <input matInput type="number" formControlName="totalQuantity">
+          <input matInput type="number" formControlName="totalQuantity" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Discount Rate</mat-label>
-          <input matInput type="number" formControlName="discountRate">
+          <input matInput type="number" formControlName="discountRate" />
         </mat-form-field>
 
         <!-- Dates -->
         <mat-form-field appearance="fill">
           <mat-label>Early Pickup Date</mat-label>
-          <input matInput [matDatepicker]="earlyPicker" formControlName="earlyPickupDate">
+          <input matInput [matDatepicker]="earlyPicker" formControlName="earlyPickupDate" />
           <mat-datepicker-toggle matSuffix [for]="earlyPicker"></mat-datepicker-toggle>
           <mat-datepicker #earlyPicker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Late Pickup Date</mat-label>
-          <input matInput [matDatepicker]="latePicker" formControlName="latePickupDate">
+          <input matInput [matDatepicker]="latePicker" formControlName="latePickupDate" />
           <mat-datepicker-toggle matSuffix [for]="latePicker"></mat-datepicker-toggle>
           <mat-datepicker #latePicker></mat-datepicker>
         </mat-form-field>
-
       </div>
       <div class="form-error">
-      <mat-error *ngIf="orderForm.errors?.['eitherRequired'] &&
-                    (orderForm.get('incoterm')?.touched || orderForm.get('freightTerms')?.touched)">
-    Please select either Incoterm or Freight Terms.
-  </mat-error>
-  </div>
+        <mat-error
+          *ngIf="
+            orderForm.errors?.['eitherRequired'] &&
+            (orderForm.get('incoterm')?.touched || orderForm.get('freightTerms')?.touched)
+          "
+        >
+          Please select either Incoterm or Freight Terms.
+        </mat-error>
+      </div>
     </mat-card-content>
   </mat-card>
 
@@ -142,27 +155,27 @@
           <h4>Billing Address</h4>
           <mat-form-field appearance="fill">
             <mat-label>Street</mat-label>
-            <input matInput formControlName="street">
+            <input matInput formControlName="street" />
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>City</mat-label>
-            <input matInput formControlName="city">
+            <input matInput formControlName="city" />
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>State</mat-label>
-            <input matInput formControlName="state">
+            <input matInput formControlName="state" />
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Postal Code</mat-label>
-            <input matInput type="number" formControlName="postalCode">
+            <input matInput type="number" formControlName="postalCode" />
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Country</mat-label>
-            <input matInput formControlName="country">
+            <input matInput formControlName="country" />
           </mat-form-field>
         </div>
 
@@ -171,93 +184,105 @@
           <h4>Shipping Address</h4>
           <mat-form-field appearance="fill">
             <mat-label>Street</mat-label>
-            <input matInput formControlName="street">
+            <input matInput formControlName="street" />
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>City</mat-label>
-            <input matInput formControlName="city">
+            <input matInput formControlName="city" />
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>State</mat-label>
-            <input matInput formControlName="state">
+            <input matInput formControlName="state" />
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Postal Code</mat-label>
-            <input matInput type="number" formControlName="postalCode">
+            <input matInput type="number" formControlName="postalCode" />
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Country</mat-label>
-            <input matInput formControlName="country">  
+            <input matInput formControlName="country" />
           </mat-form-field>
         </div>
       </div>
     </mat-card-content>
   </mat-card>
 
-
   <mat-card>
     <mat-card-title>Order Lines</mat-card-title>
     <mat-card-content>
-    <div formArrayName="lines">
-      <div *ngFor="let line of lines.controls; let i = index" [formGroupName]="i" class="line-row">
+      <div formArrayName="lines">
+        <div
+          *ngFor="let line of lines.controls; let i = index"
+          [formGroupName]="i"
+          class="line-row"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Item</mat-label>
+            <input matInput formControlName="item" />
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Item</mat-label>
-          <input matInput formControlName="item" />
-        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Units</mat-label>
+            <input matInput formControlName="units" />
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Units</mat-label>
-          <input matInput formControlName="units" />
-        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="quantity"
+              (input)="calculateLineAmount(i)"
+            />
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Quantity</mat-label>
-          <input matInput type="number" formControlName="quantity" (input)="calculateLineAmount(i)" />
-        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Price</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="price"
+              (input)="calculateLineAmount(i)"
+            />
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Price</mat-label>
-          <input matInput type="number" formControlName="price" (input)="calculateLineAmount(i)" />
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="readonly">
+            <mat-label>Amount</mat-label>
+            <input matInput [value]="line.get('amount')?.value" readonly />
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="readonly">
-          <mat-label>Amount</mat-label>
-          <input matInput [value]="line.get('amount')?.value" readonly />
-        </mat-form-field>
-
-        <button *ngIf="lines.length > 1 && !readonly"
-                mat-icon-button color="warn"
-                (click)="removeLine(i)"
-                aria-label="Remove line">
-          <mat-icon>delete</mat-icon>
-        </button>
-
+          <button
+            *ngIf="lines.length > 1 && !readonly"
+            mat-icon-button
+            color="warn"
+            (click)="removeLine(i)"
+            aria-label="Remove line"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
 
-    </div>  
-
-
-    <button *ngIf="!readonly" mat-flat-button color="primary" type="button" (click)="addLine()">Add Line</button>
-  </mat-card-content>
+      <button *ngIf="!readonly" mat-flat-button color="primary" type="button" (click)="addLine()">
+        Add Line
+      </button>
+    </mat-card-content>
   </mat-card>
 
   <div *ngIf="!readonly" class="submit-btn">
     <button mat-flat-button color="accent" type="submit">Submit Order</button>
   </div>
-
 </form>
-
 
 <div class="history-container">
   <div *ngFor="let event of orderData?.history" class="history-item">
     <div class="dot"></div>
     <div class="content">
-      <div class="timestamp">{{ event.timestamp | date:'medium' }}</div>
+      <div class="timestamp">{{ event.timestamp | date: 'medium' }}</div>
       <div class="event">{{ event.event }}</div>
     </div>
   </div>

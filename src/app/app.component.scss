@@ -7,7 +7,7 @@
 .content-wrapper {
   flex-grow: 1;
   width: 100%;
-  margin-left: 220px; 
+  margin-left: 220px;
   transition: margin-left 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@
 
   @media (max-width: 768px) {
     margin-left: 0;
-    padding-top: 64px; 
+    padding-top: 64px;
   }
 }
 
@@ -43,9 +43,9 @@
   z-index: 1002;
   background-color: #2f3c4f;
   color: white;
-  display: none; 
+  display: none;
 
   @media (max-width: 768px) {
-    display: block; 
+    display: block;
   }
 }

@@ -1,21 +1,24 @@
-
 <div class="sidebar-backdrop" [class.visible]="isMobileOpen" (click)="closeMobileSidebar()"></div>
 
 <div class="sidebar" [class.collapsed]="collapsed" [class.mobile-open]="isMobileOpen">
-
-<button
-  mat-icon-button
-  (click)="toggleSidebar()"
-  class="collapse-toggle"
-  *ngIf="!isMobileView || isMobileOpen">
-  <mat-icon>
-    {{ getToggleIcon() }}
-  </mat-icon>
-</button>
+  <button
+    mat-icon-button
+    (click)="toggleSidebar()"
+    class="collapse-toggle"
+    *ngIf="!isMobileView || isMobileOpen"
+  >
+    <mat-icon>
+      {{ getToggleIcon() }}
+    </mat-icon>
+  </button>
 
   <nav>
-    <a routerLink="/home" routerLinkActive="active"
-  [routerLinkActiveOptions]="{ exact: true }" (click)="handleMenuClick()">
+    <a
+      routerLink="/home"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="handleMenuClick()"
+    >
       <mat-icon>home</mat-icon>
       <span *ngIf="!collapsed">Home</span>
     </a>
@@ -27,10 +30,11 @@
       </a>
 
       <div class="submenu" *ngIf="!collapsed">
-        <a (click)="handleMenuClick()" routerLink="/orders/create" routerLinkActive="active">Create</a>
+        <a (click)="handleMenuClick()" routerLink="/orders/create" routerLinkActive="active"
+          >Create</a
+        >
         <a (click)="handleMenuClick()" routerLink="/orders/list" routerLinkActive="active">List</a>
       </div>
     </div>
   </nav>
-
 </div>

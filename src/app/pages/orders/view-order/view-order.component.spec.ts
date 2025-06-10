@@ -8,7 +8,7 @@ describe('ViewOrderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ViewOrderComponent]
+      declarations: [ViewOrderComponent],
     });
     fixture = TestBed.createComponent(ViewOrderComponent);
     component = fixture.componentInstance;

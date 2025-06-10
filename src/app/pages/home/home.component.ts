@@ -4,7 +4,7 @@ import { OrderService } from 'src/app/services/order.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   orderCount = 0;
@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
-    this.orderService.orders$.subscribe(orders => {
+    this.orderService.orders$.subscribe((orders) => {
       this.orderCount = orders.length;
     });
   }
