@@ -1,3 +1,5 @@
+<h1 *ngIf="!readonly">New Order</h1>
+<h1 *ngIf="readonly">Order Details</h1>
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="create-order-form">
 
   <mat-card>
